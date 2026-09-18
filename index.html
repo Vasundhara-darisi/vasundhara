@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio of Darisi Vasundhara - Computer Science Student" />
+    <title>Darisi Vasundhara - Portfolio</title>
+  </head>
+  <body>
+    <div class="bg-blobs"></div>
+    
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="container hidden" id="app-container">
+      <header>
+        <div class="profile-img-container">
+          <img id="profile-img" src="" alt="Profile Picture" />
+        </div>
+        <h1 id="profile-name"></h1>
+        <div class="contact-info">
+          <a href="#" id="profile-email"></a>
+          <span id="profile-phone"></span>
+        </div>
+      </header>
+
+      <section id="objective-section">
+        <h2>Objective</h2>
+        <p id="profile-objective"></p>
+      </section>
+
+      <section id="skills-section">
+        <h2>Skills</h2>
+        <div class="skills-grid" id="skills-container">
+          <!-- Skills injected dynamically -->
+        </div>
+      </section>
+
+      <section id="education-section">
+        <h2>Education</h2>
+        <div id="education-container">
+          <!-- Education injected dynamically -->
+        </div>
+      </section>
+
+      <section id="certifications-section">
+        <h2>Certifications</h2>
+        <div id="certifications-container">
+          <!-- Certifications injected dynamically -->
+        </div>
+      </section>
+
+      <section id="projects-section">
+        <h2>Projects</h2>
+        <div id="projects-container">
+          <!-- Projects injected dynamically -->
+        </div>
+      </section>
+      
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="/admin.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem;">Admin Panel</a>
+      </div>
+    </div>
+    
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

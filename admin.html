@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Portfolio Data Initialization</title>
+  </head>
+  <body>
+    <div class="bg-blobs"></div>
+
+    <div class="container">
+      <header>
+        <h1>Admin Initialization Panel</h1>
+        <p>Set up or update your portfolio data and upload your profile picture.</p>
+      </header>
+
+      <section>
+        <h2>Portfolio Details</h2>
+        <form id="admin-form" class="admin-form">
+          <div class="form-group">
+            <label for="profileImage">Profile Image (Upload to Cloudinary)</label>
+            <input type="file" id="profileImage" accept="image/*" />
+          </div>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" value="DARISI VASUNDHARA" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="contact">Contact No</label>
+            <input type="text" id="contact" value="7729805155" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" value="darisivasundhara1@gmail.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="objective">Objective</label>
+            <textarea id="objective" rows="4" required>Motivated Computer Science student with hands-on experience in Python, Full Stack Web Development, and Database Systems. Looking to contribute to tech projects and enhance my software development skills.</textarea>
+          </div>
+
+          <button type="submit" id="submit-btn">Save to Cloudinary & Firebase</button>
+          
+          <p id="status-msg" style="margin-top: 1rem;"></p>
+        </form>
+      </section>
+      
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="/" style="color: var(--text-muted); text-decoration: none;">&larr; Back to Portfolio</a>
+      </div>
+    </div>
+    
+    <script type="module" src="/src/admin.js"></script>
+  </body>
+</html>
