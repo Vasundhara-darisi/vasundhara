@@ -5,62 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Portfolio of Darisi Vasundhara - Computer Science Student" />
     <title>Darisi Vasundhara - Portfolio</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="bg-blobs"></div>
-    
     <div id="loader">
       <div class="spinner"></div>
     </div>
 
-    <div class="container hidden" id="app-container">
-      <header>
-        <div class="profile-img-container">
-          <img id="profile-img" src="" alt="Profile Picture" />
-        </div>
-        <h1 id="profile-name"></h1>
-        <div class="contact-info">
-          <a href="#" id="profile-email"></a>
-          <span id="profile-phone"></span>
-        </div>
-      </header>
+    <!-- Dark gradient overlay base -->
+    <div class="bg-premium"></div>
 
-      <section id="objective-section">
-        <h2>Objective</h2>
-        <p id="profile-objective"></p>
+    <div class="container hidden" id="app-container">
+      
+      <!-- Hero Section -->
+      <section class="hero-section reveal" id="hero-section">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h2 class="greeting">Hello, I'm</h2>
+            <h1 id="profile-name" class="name-gradient"></h1>
+            <p id="profile-objective" class="hero-objective"></p>
+            <div class="contact-info hero-contact">
+              <a href="#" id="profile-email" class="contact-pill"></a>
+              <span id="profile-phone" class="contact-pill"></span>
+              <a href="#" target="_blank" id="profile-resume" class="contact-pill resume-btn hidden">View Resume PDF</a>
+            </div>
+          </div>
+          <div class="hero-image-wrapper">
+            <div class="image-glow"></div>
+            <img id="profile-img" src="" alt="Profile Picture" />
+          </div>
+        </div>
       </section>
 
-      <section id="skills-section">
-        <h2>Skills</h2>
+      <!-- Skills Section -->
+      <section class="section-container reveal" id="skills-section">
+        <h2 class="section-title">Technical Arsenal</h2>
         <div class="skills-grid" id="skills-container">
           <!-- Skills injected dynamically -->
         </div>
       </section>
 
-      <section id="education-section">
-        <h2>Education</h2>
-        <div id="education-container">
+      <!-- Education Section -->
+      <section class="section-container reveal" id="education-section">
+        <h2 class="section-title">Education</h2>
+        <div class="timeline" id="education-container">
           <!-- Education injected dynamically -->
         </div>
       </section>
 
-      <section id="certifications-section">
-        <h2>Certifications</h2>
-        <div id="certifications-container">
+      <!-- Certifications Section -->
+      <section class="section-container reveal" id="certifications-section">
+        <h2 class="section-title">Certifications</h2>
+        <div class="timeline" id="certifications-container">
           <!-- Certifications injected dynamically -->
         </div>
       </section>
 
-      <section id="projects-section">
-        <h2>Projects</h2>
-        <div id="projects-container">
+      <!-- Projects Section -->
+      <section class="section-container reveal" id="projects-section">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid" id="projects-container">
           <!-- Projects injected dynamically -->
         </div>
       </section>
       
-      <div style="text-align: center; margin-top: 3rem;">
-        <a href="/admin.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem;">Admin Panel</a>
-      </div>
+      <footer class="footer reveal">
+        <a href="/admin.html" class="admin-link">Admin Panel</a>
+      </footer>
     </div>
     
     <script type="module" src="/src/main.js"></script>

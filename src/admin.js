@@ -1,49 +1,58 @@
 import './style.css';
 import { db, doc, setDoc } from './firebase.js';
 
-const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/njvxmkax/image/upload";
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/njvxmkax/upload";
 const UPLOAD_PRESET = "timepass";
 
 const form = document.getElementById('admin-form');
 const statusMsg = document.getElementById('status-msg');
 const submitBtn = document.getElementById('submit-btn');
 
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', UPLOAD_PRESET);
+
+  const res = await fetch(CLOUDINARY_URL, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to upload file to Cloudinary.');
+  }
+
+  const data = await res.json();
+  return data.secure_url;
+}
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   submitBtn.disabled = true;
   submitBtn.textContent = 'Processing...';
   statusMsg.textContent = '';
-  statusMsg.style.color = '#cbd5e1';
+  statusMsg.style.color = '#a1a1aa';
 
   try {
-    const fileInput = document.getElementById('profileImage');
-    let imageUrl = ''; // Default or empty if no file uploaded
+    const imageInput = document.getElementById('profileImage');
+    const pdfInput = document.getElementById('resumePdf');
+    
+    let imageUrl = '';
+    let pdfUrl = '';
 
-    // 1. Upload to Cloudinary if file exists
-    if (fileInput.files.length > 0) {
+    // 1. Upload Image
+    if (imageInput.files.length > 0) {
       statusMsg.textContent = 'Uploading image to Cloudinary...';
-      const file = fileInput.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', UPLOAD_PRESET);
-
-      const res = await fetch(CLOUDINARY_URL, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        throw new Error('Failed to upload image to Cloudinary.');
-      }
-
-      const data = await res.json();
-      imageUrl = data.secure_url;
-      statusMsg.textContent = 'Image uploaded successfully!';
-    } else {
-      statusMsg.textContent = 'No image selected. Skipping Cloudinary upload.';
+      imageUrl = await uploadToCloudinary(imageInput.files[0]);
     }
 
-    // 2. Save data to Firebase
+    // 2. Upload PDF
+    if (pdfInput.files.length > 0) {
+      statusMsg.textContent = 'Uploading PDF to Cloudinary...';
+      pdfUrl = await uploadToCloudinary(pdfInput.files[0]);
+    }
+
+    // 3. Save data to Firebase
     statusMsg.textContent = 'Saving data to Firebase...';
 
     const portfolioData = {
@@ -52,10 +61,11 @@ form.addEventListener('submit', async (e) => {
         contact: document.getElementById('contact').value,
         email: document.getElementById('email').value,
         objective: document.getElementById('objective').value,
-        imageUrl: imageUrl, // Includes the cloudinary URL
+        imageUrl: imageUrl, 
+        pdfUrl: pdfUrl 
       },
       skills: {
-        languages: ["C", "Python"],
+        languages: ["C", "Java", "Python"],
         web: ["HTML", "CSS"],
         other: ["DBMS", "Data Structures"]
       },
@@ -63,34 +73,35 @@ form.addEventListener('submit', async (e) => {
         {
           institution: "Aditya Degree College, Kakinada",
           degree: "B.Sc. Computer Science",
-          year: "2023 - 2026",
-          score: "CGPA: 8.5/10"
+          year: "2023",
+          score: "CGPA: 8.5"
         },
         {
           institution: "Narayana Junior College, Kakinada",
           degree: "Class XII",
-          year: "2022 - 2023",
-          score: "Percentage: 90%"
-        },
-        {
-          institution: "Narayana e-techno school",
-          degree: "10th",
-          year: "2021",
-          score: "Grade: 93%"
+          year: "2020 - 2022",
+          score: "Percentage: 89.6%"
         }
       ],
       certifications: [
-        "Cloud computing Certification from NPTEL",
+        "CLOUD COMPUTING - NPTEL",
         "Python Essentials 1 & 2 – Cisco Networking Academy",
-        "Devops Certification from hackathon",
-        "AWS Cloud Careers – edX",
+        "Data Analytics – IBM",
         "HTML5 -ADHOC NETWORK",
         "Programming in C and Electronics project"
       ],
       projects: [
         {
           title: "Automatic Door Opening System (Python & IR Sensor)",
-          description: "Developed a smart door automation system using IR sensors and Python. Used for real-time detection and automatic access control. Designed for environments like malls, hospitals, and airports. Focused on sensor programming, hardware-software integration, and real-world IoT application."
+          description: "Developed a smart door automation system used for real-time detection and automatic access control. Designed for environments like malls, hospitals, and airports"
+        },
+        {
+          title: "short-term Internship",
+          description: "MERN Stack Intern – ADHOC Network Company"
+        },
+        {
+          title: "INTERNSHIP",
+          description: "Data Analytics using Python"
         }
       ]
     };
@@ -98,7 +109,7 @@ form.addEventListener('submit', async (e) => {
     // Store in Firestore in 'portfolio/data' document
     await setDoc(doc(db, "portfolio", "data"), portfolioData);
 
-    statusMsg.textContent = 'Success! Data initialized in Firebase. Go back to portfolio.';
+    statusMsg.textContent = 'Success! Data initialized. Go back to portfolio.';
     statusMsg.style.color = '#4ade80'; // Success green
   } catch (error) {
     console.error(error);
